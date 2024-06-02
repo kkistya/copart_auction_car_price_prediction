@@ -2,3 +2,4 @@
 resources/
 trash/
 data/
+__pycache__/

@@ -12,7 +12,7 @@ def parse_data(input_html) -> json:
     auction_date = soup.find(class_='psa-tabs-content')
     auction_date = auction_date.find_all('tr')[-1]
     final_bid = auction_date.find(class_='status price')
-    jcar['final_bid'] = final_bid.text.replace('$', '').replace(',', '').replace('---', '0')
+    jcar['Final_bid'] = final_bid.text.replace('$', '').replace(',', '').replace('---', '0')
     sold = auction_date.find(class_='status sold')
     if sold:
         sold = sold.text.strip()
@@ -21,7 +21,7 @@ def parse_data(input_html) -> json:
         jcar['Sold'] = "Not Sold"
 
 
-    seller = auction_date.find_all('td')[-1].text.strip()
+    seller = auction_date.find_all('td')[-1].text.strip().replace('*', '')
     jcar['Seller'] = seller
     auction_date = auction_date.find('td').text.strip()
     jcar['Auction_date'] = auction_date
@@ -74,14 +74,15 @@ def parse_data(input_html) -> json:
         jcar['Actual_cash_value'] = jcar['ACV'].replace('$', '').replace(',', '')
 
     if 'ERC' in jcar:
-        jcar['Estimated_repair_cost'] = jcar['ACV'].replace('$', '').replace(',', '')
+        jcar['Estimated_repair_cost'] = jcar['ERC'].replace('$', '').replace(',', '')
 
     if 'Engine' in jcar:
         jcar['Eng_L'] = jcar['Engine'].split('L')[0]
         hp = jcar['Engine'].split()
-        jcar['Eng_HP'] = hp[len(hp) - 1].replace('HP', '')
+        if len(hp)> 2:
+            jcar['Eng_HP'] = hp[len(hp) - 1].replace('HP', '')
 
-    not_needed = ['VIN', 'Photos', 'Airbag checked', 'Restraint System', 'Odometer', 'Engine', 'ACV', 'ERC']
+    not_needed = ['VIN', 'Photos', 'Airbag checked', 'Restraint System', 'Odometer', 'ACV', 'ERC', 'eries']
     for _ in not_needed:
         if _ in jcar:
             del jcar[_]
@@ -103,7 +104,7 @@ def read_files(path):
             yield car
 
 
-df = pd.DataFrame(read_files("resources"))
-df.to_csv('data/data.csv', index=False)
-
-print(df)
+def parce():
+    df = pd.DataFrame(read_files("resources"))
+    df.to_csv('data/data.csv', index=False)
+    print(df)

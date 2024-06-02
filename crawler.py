@@ -5,18 +5,16 @@ from time import sleep
 
 def get_cars():
     search_urls = [
-        "https://bid.cars/en/search/archived/results?search-type=filters&type=Automobile&year-from=20010&year-to=2025&make=Toyota&model=All&auction-type=All",
+        "https://bid.cars/en/search/archived/results?search-type=filters&type=Automobile&year-from=2010&year-to=2025&make=Toyota&model=All&auction-type=All",
     ]
 
-    # region selenium init
     options = webdriver.ChromeOptions()
     # options.add_argument("--headless")
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
     # options.add_experimental_option("detach", True)
-    # options.add_argument('--proxy-server=YOUR_PROXY_SERVER')
+    # options.add_argument('--proxy-server=PROXY_SERVER')
     driver = webdriver.Chrome(options=options)
-    # endregion
 
 
     for url in search_urls:
