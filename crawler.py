@@ -5,7 +5,7 @@ from time import sleep
 
 def get_cars():
     search_urls = [
-        "https://bid.cars/en/search/archived/results?search-type=filters&type=Automobile&year-from=2010&year-to=2025&make=Toyota&model=All&auction-type=All",
+        "https://bid.cars/en/search/archived/results?search-type=filters&type=Automobile&year-from=2000&year-to=2025&make=Toyota&model=All&auction-type=All",
     ]
 
     options = webdriver.ChromeOptions()
